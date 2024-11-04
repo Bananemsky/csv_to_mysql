@@ -151,7 +151,7 @@ class DatabaseApp(QMainWindow):
             with open(file_path, 'r') as file:
                 csv_content = file.read()
                 self.csv_text_display.setPlainText("Loaded CSV file: \r\n" + csv_content)  # Display raw text in the text field
-            csv_data = pd.read_csv(file_path)
+            csv_data = pd.read_csv(file_path, header=None)
             QMessageBox.information(self, "CSV Loaded", f"Loaded {len(csv_data)} rows from {file_path}")
 
     def load_data_to_database(self):
