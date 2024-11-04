@@ -242,6 +242,7 @@ class DatabaseApp(QMainWindow):
         except Exception as e:
             return_message = "Unable to properly read config file, error message: " + str(e)
             QMessageBox.information(self, "Config file parsing error", return_message)
+
         try:
             db_connection = mysql.connector.connect(
                 host=HOST,
@@ -251,14 +252,17 @@ class DatabaseApp(QMainWindow):
             )
             db_cursor = db_connection.cursor()
             db_connected = True
+
+            return_message = "Connection successful!"
+            QMessageBox.information(self, "Database connection", return_message)
+            # Initialize the table view
+            self.update_table_view()
+
         except Exception as e:
             return_message = "Unable to connect to the database, error message: " + str(e)
             QMessageBox.information(self, "Database connection error", return_message)
+            db_connected = False
 
-        return_message = "Connection successful!"
-        QMessageBox.information(self, "Database connection", return_message)
-        # Initialize the table view
-        self.update_table_view()
 
 
 if __name__ == "__main__":
