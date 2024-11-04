@@ -17,6 +17,12 @@ global db_cursor
 db_cursor = None
 CONFIG_FILE = 'config.ini'
 
+global HOST
+global USER
+global PASSWORD
+global DATABASE
+
+
 class DatabaseApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -164,7 +170,7 @@ class DatabaseApp(QMainWindow):
         fields = first_row.split(";")  # Split by semicolon
         seria = fields[1]
 
-        zlecenia_query = f"INSERT INTO `sql_testing`.`zlecenia` (`seria`, `stan`) VALUES ('" + str(seria) + "', '0');"
+        zlecenia_query = f"INSERT INTO `" + str(DATABASE) + "`.`zlecenia` (`seria`, `stan`) VALUES ('" + str(seria) + "', '0');"
         try:
             db_cursor.execute(zlecenia_query)
             db_connection.commit()
@@ -180,7 +186,7 @@ class DatabaseApp(QMainWindow):
                     szt = fields[4]
                     wyk = 0
                     stan = 0
-                    insert_query = f"INSERT INTO `sql_testing`.`produkcja` (`seria`, `ref`, `typ`, `rh`, `szt`, `wyk`, `stan`, `zlecID`) VALUES ('" + str(
+                    insert_query = f"INSERT INTO `" + str(DATABASE) + "`.`produkcja` (`seria`, `ref`, `typ`, `rh`, `szt`, `wyk`, `stan`, `zlecID`) VALUES ('" + str(
                         seria) + "', '" + str(ref) + "', '" + str(typ) + "', '" + str(rh) + "', '" + str(
                         szt) + "', '" + str(wyk) + "', '" + str(stan) + "', '" + str(zlecID) + "');"
                     self.csv_text_display.setPlainText("Executing SQL query: " + insert_query)  # Display raw text in the text field
@@ -227,6 +233,10 @@ class DatabaseApp(QMainWindow):
         global db_connection
         global db_cursor
         global db_connected
+        global HOST
+        global USER
+        global PASSWORD
+        global DATABASE
         try:
             # Initialize the ConfigParser
             config = configparser.ConfigParser()
