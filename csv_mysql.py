@@ -7,9 +7,14 @@ import configparser
 import os
 
 
+global db_connected
 db_connected = False
+global csv_loaded
 csv_loaded = False
+global csv_data
 csv_data = None
+global db_cursor
+db_cursor = None
 CONFIG_FILE = 'config.ini'
 
 class DatabaseApp(QMainWindow):
@@ -147,6 +152,7 @@ class DatabaseApp(QMainWindow):
         global db_connected
         global csv_loaded
         global csv_data
+        global db_cursor
         if csv_loaded is False:
             QMessageBox.warning(self, "No CSV", "Please select a CSV file first.")
             return
@@ -189,13 +195,19 @@ class DatabaseApp(QMainWindow):
 
     def update_table_view(self):
         global db_cursor
+        global db_connected
         selected_table = self.table_selector.currentText()
 
         # Retrieve data from the selected table
         query = f"SELECT * FROM {selected_table}"
-        db_cursor.execute(query)
-        rows = db_cursor.fetchall()
-        columns = [i[0] for i in db_cursor.description]
+
+        if db_connected == True:
+            try:
+                db_cursor.execute(query)
+                rows = db_cursor.fetchall()
+                columns = [i[0] for i in db_cursor.description]
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to refresh the table: {e}")
 
         # Set up the table widget
         self.table_widget.clear()
@@ -207,6 +219,9 @@ class DatabaseApp(QMainWindow):
         for row_idx, row_data in enumerate(rows):
             for col_idx, value in enumerate(row_data):
                 self.table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
+
+        else:
+            QMessageBox.critical(self, "Error",f"Failed to refresh the table: {e}\r Please connect to the database first.")
 
     def connect_to_database(self):
         # Specify that we are using global variables
