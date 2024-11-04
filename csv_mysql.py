@@ -206,22 +206,21 @@ class DatabaseApp(QMainWindow):
                 db_cursor.execute(query)
                 rows = db_cursor.fetchall()
                 columns = [i[0] for i in db_cursor.description]
+
+                # Set up the table widget
+                self.table_widget.clear()
+                self.table_widget.setRowCount(len(rows))
+                self.table_widget.setColumnCount(len(columns))
+                self.table_widget.setHorizontalHeaderLabels(columns)
+
+                # Populate the table widget with data
+                for row_idx, row_data in enumerate(rows):
+                    for col_idx, value in enumerate(row_data):
+                        self.table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to refresh the table: {e}")
-
-        # Set up the table widget
-        self.table_widget.clear()
-        self.table_widget.setRowCount(len(rows))
-        self.table_widget.setColumnCount(len(columns))
-        self.table_widget.setHorizontalHeaderLabels(columns)
-
-        # Populate the table widget with data
-        for row_idx, row_data in enumerate(rows):
-            for col_idx, value in enumerate(row_data):
-                self.table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
-
         else:
-            QMessageBox.critical(self, "Error",f"Failed to refresh the table: {e}\r Please connect to the database first.")
+            QMessageBox.critical(self, "Error","Please connect to the database first.")
 
     def connect_to_database(self):
         # Specify that we are using global variables
