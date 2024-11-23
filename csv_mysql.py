@@ -26,10 +26,13 @@ global DATABASE
 class DatabaseApp(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        # Load configuration
-        self.config_file = "config.ini"
-        self.load_config()
+        try:
+            # Load configuration
+            path = os.getcwd() + "\\" + CONFIG_FILE
+            self.config_file = path
+            self.load_config()
+        except Exception as e:
+            QMessageBox.critical(self, "Error","Issue with config file: " + str(e))
 
         # Set up the window
         self.setWindowTitle(self.config.get("Application", "window_title", fallback="CSV to MySQL Importer"))
@@ -120,16 +123,23 @@ class DatabaseApp(QMainWindow):
 
     def load_config(self):
         """Load the configuration file."""
-        self.config = configparser.ConfigParser()
-        self.config.read(self.config_file)
+        try:
+            self.config = configparser.ConfigParser()
+            self.config.read(self.config_file)
+        except Exception as e:
+            QMessageBox.critical(self, "Error","Issue with config file: " + str(e))
 
     def edit_config(self):
         """Open and display the config file in the text editor."""
-        with open(self.config_file, 'r') as file:
-            config_content = file.read()
-            self.config_text_display.setPlainText(config_content)  # Display the config content in the text editor
-            self.config_text_display.show()  # Show the text editor
-            self.save_config_button.show()   # Show the save button
+        try:
+            with open(self.config_file, 'r') as file:
+                config_content = file.read()
+                self.config_text_display.setPlainText(config_content)  # Display the config content in the text editor
+                self.config_text_display.show()  # Show the text editor
+                self.save_config_button.show()   # Show the save button
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error","Issue with config file: " + str(e))
 
     def save_config(self):
         """Save changes to the config file."""
@@ -249,6 +259,7 @@ class DatabaseApp(QMainWindow):
             USER = config.get("Database", "user")
             PASSWORD = config.get("Database", "password")
             DATABASE = config.get("Database", "database")
+
         except Exception as e:
             return_message = "Unable to properly read config file, error message: " + str(e)
             QMessageBox.information(self, "Config file parsing error", return_message)
@@ -260,6 +271,7 @@ class DatabaseApp(QMainWindow):
                 password=PASSWORD,
                 database=DATABASE
             )
+
             db_cursor = db_connection.cursor()
             db_connected = True
 
