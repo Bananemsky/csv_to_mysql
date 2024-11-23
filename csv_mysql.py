@@ -193,7 +193,7 @@ class DatabaseApp(QMainWindow):
                     ref = fields[2]
                     typ = fields[3]
                     rh = int(str(fields[4]).replace(".", ""))
-                    szt = fields[4]
+                    szt = fields[5]
                     wyk = 0
                     stan = 0
                     insert_query = f"INSERT INTO `" + str(DATABASE) + "`.`produkcja` (`seria`, `ref`, `typ`, `rh`, `szt`, `wyk`, `stan`, `zlecID`) VALUES ('" + str(
