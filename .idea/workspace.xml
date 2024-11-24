@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a13caf9-4ba6-4d97-8ea0-5753135ba4d5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/csv_to_mysql.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv_to_mysql.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Konwerter.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Konwerter.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Konwerter_csv_mysql.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Konwerter_csv_mysql.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/csv_mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="1a13caf9-4ba6-4d97-8ea0-5753135ba4d5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
