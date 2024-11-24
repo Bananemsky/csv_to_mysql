@@ -1,4 +1,5 @@
-import mysql.connector
+# import mysql.connector
+import pymysql
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import sys
@@ -265,13 +266,12 @@ class DatabaseApp(QMainWindow):
             QMessageBox.information(self, "Config file parsing error", return_message)
 
         try:
-            db_connection = mysql.connector.connect(
+            db_connection = pymysql.connect(
                 host=HOST,
                 user=USER,
                 password=PASSWORD,
                 database=DATABASE
             )
-
             db_cursor = db_connection.cursor()
             db_connected = True
 
